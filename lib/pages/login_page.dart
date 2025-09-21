@@ -1,5 +1,7 @@
-  import 'package:flutter/material.dart';
-// import 'package:flutterapp/pages/home_page.dart';
+import 'package:flutter/material.dart';
+import 'package:socceranalyticsapp/pages/choose_league_page.dart';
+import 'choose_league_page.dart';
+import 'package:socceranalyticsapp/pages/home_page.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -59,11 +61,11 @@ class _LoginPageState extends State<LoginPage> {
               child: ElevatedButton(
                   onPressed: () {
                     //navegar para home page
-                    // Navigator.pushReplacement(
-                    //   context,
-                    //   MaterialPageRoute(
-                    //     builder: (context) => const HomePage()),
-                    // );
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const ChooseLeaguePage()), // somente se estiver logado e ainda nao escolheu liga                        
+                    );
                   },
                   child: const Text("Entrar")))
         ],
