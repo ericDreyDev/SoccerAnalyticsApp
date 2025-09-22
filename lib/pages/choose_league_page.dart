@@ -5,6 +5,7 @@ import 'package:socceranalyticsapp/models/league_model.dart';
 import 'package:socceranalyticsapp/pages/home_page.dart';
 import 'package:socceranalyticsapp/repositories/leagues_repository.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 class ChooseLeaguePage extends StatefulWidget {
   const ChooseLeaguePage({super.key});
@@ -17,6 +18,7 @@ class _ChooseLeaguePageState extends State<ChooseLeaguePage> {
   LeagueModel? selectedLeague;
   late Future<List<LeagueModel>> leaguesFuture;
   final repository = LeaguesRepository();
+  final _storage = FlutterSecureStorage();
 
   @override
   void initState() {
@@ -26,20 +28,25 @@ class _ChooseLeaguePageState extends State<ChooseLeaguePage> {
 
   Future<void> _confirmSelection() async {
     if (selectedLeague != null) {
-      final prefs = await SharedPreferences.getInstance();
-      await prefs.setString(
-        'selected_league',
-        jsonEncode({'id': selectedLeague!.id, 'name': selectedLeague!.name}),
-      );
-
-      // Navigate to home page after saving the selection
-      Navigator.of(context).pushReplacement(
-        MaterialPageRoute(
-          builder: (_) => HomePage(selectedLeague: selectedLeague!),
-        ),
-      );
+      try {
+        await _storage.write(
+          key: 'selected_league',
+          value: jsonEncode({
+            'idLeague': selectedLeague!.id,
+            'strName': selectedLeague!.name,
+          }),
+        );
+        Navigator.of(context).pushReplacement(
+          MaterialPageRoute(
+            builder: (_) => HomePage(selectedLeague: selectedLeague!),
+          ),
+        );
+      } catch (e) {
+        ScaffoldMessenger.of(
+          context,
+        ).showSnackBar(SnackBar(content: Text('Erro ao salvar liga: $e')));
+      }
     } else {
-      // Show a message to select a league
       ScaffoldMessenger.of(
         context,
       ).showSnackBar(const SnackBar(content: Text("Please select a league")));

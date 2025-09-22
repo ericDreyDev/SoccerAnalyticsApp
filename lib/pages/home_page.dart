@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:socceranalyticsapp/components/team_card.dart';
 import 'package:socceranalyticsapp/models/league_model.dart';
+import 'package:socceranalyticsapp/pages/favorites_page.dart';
 import 'package:socceranalyticsapp/pages/login_page.dart';
 
 class HomePage extends StatefulWidget {
@@ -48,7 +49,7 @@ class _HomePageState extends State<HomePage> {
             icon: const Icon(Icons.logout),
             onPressed: () {
               _logout();
-            },
+            }, 
           ),
         ],
       ),
@@ -74,7 +75,7 @@ class _HomePageState extends State<HomePage> {
         children: [
           TeamCard(league: widget.selectedLeague, onTeamTap: openStatisticsFor),
           Center(child: Text("Statistics Page")),
-          Center(child: Text("Favorites Page")),
+          FavoritesPage(),
         ],
       ),
     );

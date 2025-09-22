@@ -24,7 +24,7 @@ class LeaguesRepository {
 
   Future<List<TeamModel>> fetchTeamsByLeague(String leagueId) async {
     final response = await http.get(
-      Uri.parse('https://www.thesportsdb.com/api/v1/json/123/lookup_all_teams.php?id=$leagueId')
+      Uri.parse('https://www.thesportsdb.com/api/v1/json/123/search_all_teams.php?id=$leagueId')
     );
 
     if (response.statusCode == 200) {
