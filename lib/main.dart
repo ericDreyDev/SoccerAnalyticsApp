@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'pages/login_page.dart';
+import 'package:socceranalyticsapp/pages/splash_screen.dart';
+// import 'pages/login_page.dart';
 
 void main() {
   runApp(const App());
@@ -22,7 +23,7 @@ class App extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const LoginPage()
+      home: const SplashScreen()
     );
   }
 }
