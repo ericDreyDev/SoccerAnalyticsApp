@@ -4,6 +4,7 @@ import 'package:socceranalyticsapp/components/team_card.dart';
 import 'package:socceranalyticsapp/models/league_model.dart';
 import 'package:socceranalyticsapp/pages/favorites_page.dart';
 import 'package:socceranalyticsapp/pages/login_page.dart';
+import 'package:socceranalyticsapp/pages/team_statistics_page.dart';
 
 class HomePage extends StatefulWidget {
   final LeagueModel selectedLeague;
@@ -17,11 +18,18 @@ class _HomePageState extends State<HomePage> {
   int currentPageIndex = 0;
   String? selectedTeam;
 
-  void openStatisticsFor(String team) {
+  void openStatisticsFor(String team, String teamId) {
     setState(() {
       selectedTeam = team;
       currentPageIndex = 1;
     });
+    // Aqui você pode adicionar a lógica para abrir a página de estatísticas do time selecionado
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => TeamStatisticsPage(teamId: teamId, teamName: team),
+      ),
+    );
   }
 
   Future<void> _logout() async {
@@ -63,10 +71,7 @@ class _HomePageState extends State<HomePage> {
         selectedIndex: currentPageIndex,
         destinations: [
           NavigationDestination(icon: Icon(Icons.home), label: "Home"),
-          NavigationDestination(
-            icon: Icon(Icons.bar_chart),
-            label: "Statistics",
-          ),
+          NavigationDestination(icon: Icon(Icons.bar_chart), label: "Statistics"),
           NavigationDestination(icon: Icon(Icons.favorite), label: "Favorites"),
         ],
       ),
@@ -74,7 +79,7 @@ class _HomePageState extends State<HomePage> {
         index: currentPageIndex,
         children: [
           TeamCard(league: widget.selectedLeague, onTeamTap: openStatisticsFor),
-          Center(child: Text("Statistics Page")),
+          const Center(child: Text("Select a team to view statistics")),
           FavoritesPage(),
         ],
       ),

@@ -10,7 +10,7 @@ import 'package:socceranalyticsapp/providers/favorites_provider.dart';
 
 class TeamCard extends StatefulWidget {
   final LeagueModel league;
-  final void Function(String team) onTeamTap;
+  final void Function(String team, String teamId) onTeamTap;
 
   const TeamCard({required this.league, required this.onTeamTap, super.key});
 
@@ -163,12 +163,13 @@ class _TeamCardState extends State<TeamCard> {
 
   Widget _buildTeamCard(TeamModel team) {
     final teamName = team.name ?? 'Unknown Team';
+    final teamId = team.id ?? '';
 
     return Card(
       elevation: 4,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
       child: InkWell(
-        onTap: () => widget.onTeamTap(teamName),
+        onTap: () => widget.onTeamTap(teamName, teamId),
         borderRadius: BorderRadius.circular(12),
         child: Stack(
           children: [

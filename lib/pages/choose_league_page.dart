@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:socceranalyticsapp/models/league_model.dart';
 import 'package:socceranalyticsapp/pages/home_page.dart';
 import 'package:socceranalyticsapp/repositories/leagues_repository.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 class ChooseLeaguePage extends StatefulWidget {
