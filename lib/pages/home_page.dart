@@ -23,7 +23,6 @@ class _HomePageState extends State<HomePage> {
       selectedTeam = team;
       currentPageIndex = 1;
     });
-    // Aqui você pode adicionar a lógica para abrir a página de estatísticas do time selecionado
     Navigator.push(
       context,
       MaterialPageRoute(
@@ -35,12 +34,12 @@ class _HomePageState extends State<HomePage> {
   Future<void> _logout() async {
     const storage = FlutterSecureStorage();
 
-    // Limpar todos os dados salvos
+    // clear all saved data
     await storage.delete(key: 'saved_email');
     await storage.delete(key: 'saved_password');
     await storage.delete(key: 'remember_me');
 
-    Navigator.pushAndRemoveUntil( // para evitar voltar com o botão de voltar
+    Navigator.pushAndRemoveUntil(
       context,
       MaterialPageRoute(builder: (context) => const LoginPage()),
       (route) => false,

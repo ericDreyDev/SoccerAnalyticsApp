@@ -60,9 +60,9 @@ class _TeamStatisticsPageState extends State<TeamStatisticsPage> {
           title: Text(title),
           bottom: TabBar(
             tabs: [
-              Tab(icon: Icon(Icons.schedule), text: 'Próxima'),
-              Tab(icon: Icon(Icons.sports_score), text: 'Última'),
-              Tab(icon: Icon(Icons.group), text: 'Jogadores'),
+              Tab(icon: Icon(Icons.schedule), text: 'Next'),
+              Tab(icon: Icon(Icons.sports_score), text: 'Last'),
+              Tab(icon: Icon(Icons.group), text: 'Players'),
             ],
           ),
         ),
@@ -100,14 +100,14 @@ class _NextMatchTab extends StatelessWidget {
           }
           if (snap.hasError) {
             return _ErrorList(
-              message: 'Falha ao carregar próxima partida: ${snap.error}',
+              message: 'Failed to load next match: ${snap.error}',
               onRetry: onRefresh,
             );
           }
           final list = snap.data ?? [];
           if (list.isEmpty) {
             return const _EmptyList(
-              message: 'Nenhuma próxima partida encontrada.',
+              message: 'No upcoming matches found.',
             );
           }
           final m = list.first;
@@ -153,14 +153,14 @@ class _LastMatchTab extends StatelessWidget {
           }
           if (snap.hasError) {
             return _ErrorList(
-              message: 'Falha ao carregar última partida: ${snap.error}',
+              message: 'Failed to load last match: ${snap.error}',
               onRetry: onRefresh,
             );
           }
           final list = snap.data ?? [];
           if (list.isEmpty) {
             return const _EmptyList(
-              message: 'Nenhuma última partida encontrada.',
+              message: 'No last match found.',
             );
           }
           final m = list.first;
@@ -209,15 +209,14 @@ class _PlayersTab extends StatelessWidget {
           }
           if (snap.hasError) {
             return _ErrorList(
-              message: 'Falha ao carregar jogadores: ${snap.error}',
+              message: 'Failed to load players: ${snap.error}',
               onRetry: onRefresh,
             );
           }
           final players = snap.data ?? [];
           if (players.isEmpty) {
-            return const _EmptyList(message: 'Nenhum jogador encontrado.');
+            return const _EmptyList(message: 'No players found.');
           }
-          // Exibe todos os jogadores retornados pelo repositório
           return ListView(
             padding: const EdgeInsets.all(16),
             children: players.map((p) => _PlayerCard(p)).toList(),
@@ -281,12 +280,12 @@ class _MatchCard extends StatelessWidget {
                 const SizedBox(height: 8),
                 Text('$home vs $away'),
                 const SizedBox(height: 4),
-                Text('Data: $date'),
+                Text('Date: $date'),
                 const SizedBox(height: 2),
-                Text('Hora: $time'),
+                Text('Time: $time'),
                 if (score != null) ...[
                   const SizedBox(height: 8),
-                  Text('Placar: $score'),
+                  Text('Score: $score'),
                 ],
               ],
             ),
@@ -307,10 +306,10 @@ class _PlayerCard extends StatelessWidget {
       elevation: 3,
       clipBehavior: Clip.antiAlias,
       child: Column(
-        mainAxisSize: MainAxisSize.min, // evita tentar expandir infinito
+        mainAxisSize: MainAxisSize.min,
         children: [
           SizedBox(
-            height: 120, // altura fixa segura dentro de listas
+            height: 120,
             child: p.photoUrl.isNotEmpty
                 ? CachedNetworkImage(
                     imageUrl: p.photoUrl,
@@ -340,25 +339,25 @@ class _PlayerCard extends StatelessWidget {
                 const SizedBox(height: 6),
                 if (p.nationality.isNotEmpty)
                   Text(
-                    'Nacionalidade: ${p.nationality}',
+                    'Nationality: ${p.nationality}',
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                   ),
                 if (p.footPreferred.isNotEmpty)
                   Text(
-                    'Lado: ${p.footPreferred}',
+                    'Foot: ${p.footPreferred}',
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                   ),
                 if (p.height.isNotEmpty)
                   Text(
-                    'Altura: ${p.height}',
+                    'Height: ${p.height}',
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                   ),
                 if (p.weight.isNotEmpty)
                   Text(
-                    'Peso: ${p.weight}',
+                    'Weight: ${p.weight}',
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                   ),
@@ -393,7 +392,7 @@ class _ErrorList extends StatelessWidget {
         Center(
           child: ElevatedButton(
             onPressed: () => onRetry(),
-            child: const Text('Tentar novamente'),
+            child: const Text('Try Again'),
           ),
         ),
       ],
@@ -412,7 +411,7 @@ class _EmptyList extends StatelessWidget {
         SizedBox(height: 120),
         Icon(Icons.info_outline, size: 48, color: Colors.grey),
         SizedBox(height: 12),
-        Center(child: Text('Nenhum dado disponível no momento.')),
+        Center(child: Text('No data available at the moment.')),
       ],
     );
   }

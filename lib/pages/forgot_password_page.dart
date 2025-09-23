@@ -14,7 +14,7 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
 
   Future<void> _sendResetEmail() async {
     if (emailController.text.isEmpty) {
-      _showSnackBar('Por favor, digite seu email');
+      _showSnackBar('Please, enter your email.');
       return;
     }
 
@@ -22,7 +22,6 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
       isLoading = true;
     });
 
-    // Simular envio de email (substitua pela sua lógica)
     await Future.delayed(const Duration(seconds: 2));
 
     setState(() {
@@ -53,8 +52,8 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
             colors: [
-              Color(0xFF1E3A8A), // Azul escuro (campo de futebol à noite)
-              Color(0xFF059669), // Verde (grama do campo)
+              Color(0xFF1E3A8A),
+              Color(0xFF059669),
             ],
           ),
         ),
@@ -64,7 +63,6 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                // Botão voltar
                 Row(
                   children: [
                     IconButton(
@@ -80,7 +78,6 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                   ],
                 ),
                 
-                // Logo compacta
                 Container(
                   width: MediaQuery.of(context).size.width * 0.35,
                   padding: const EdgeInsets.all(15),
@@ -101,12 +98,11 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                   ),
                 ),
                 
-                // Título e descrição compactos
                 if (!emailSent) ...[
                   Column(
                     children: [
                       const Text(
-                        'Esqueceu a senha?',
+                        'Forgot your password?',
                         style: TextStyle(
                           fontSize: 24,
                           fontWeight: FontWeight.bold,
@@ -124,7 +120,7 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                       const SizedBox(height: 6),
                       
                       const Text(
-                        'Digite seu email para recuperação',
+                        'Enter your email for recovery',
                         textAlign: TextAlign.center,
                         style: TextStyle(
                           fontSize: 14,
@@ -138,7 +134,7 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                   Column(
                     children: [
                       const Text(
-                        'Email Enviado! ⚽',
+                        'Email Sent! ⚽',
                         style: TextStyle(
                           fontSize: 24,
                           fontWeight: FontWeight.bold,
@@ -156,7 +152,7 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                       const SizedBox(height: 6),
                       
                       const Text(
-                        'Verifique sua caixa de entrada',
+                        'Check your inbox',
                         textAlign: TextAlign.center,
                         style: TextStyle(
                           fontSize: 14,
@@ -168,7 +164,6 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                   ),
                 ],
                 
-                // Card do formulário compacto
                 Container(
                   padding: const EdgeInsets.all(20),
                   decoration: BoxDecoration(
@@ -185,7 +180,6 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                   child: Column(
                     children: [
                       if (!emailSent) ...[
-                        // Ícone de recuperação compacto
                         Container(
                           width: 60,
                           height: 60,
@@ -202,7 +196,6 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                         
                         const SizedBox(height: 20),
                         
-                        // Campo de Email
                         Container(
                           decoration: BoxDecoration(
                             color: const Color(0xFFF8F9FA),
@@ -220,7 +213,7 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                                 Icons.email_outlined,
                                 color: Color(0xFF6C757D),
                               ),
-                              hintText: "Digite seu email",
+                              hintText: "Email Address",
                               hintStyle: TextStyle(
                                 color: Color(0xFF6C757D),
                                 fontSize: 16,
@@ -236,7 +229,6 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                         
                         const SizedBox(height: 20),
                         
-                        // Botão de Enviar
                         SizedBox(
                           width: double.infinity,
                           height: 50,
@@ -269,7 +261,7 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                                       ),
                                       SizedBox(width: 8),
                                       Text(
-                                        "ENVIAR RECUPERAÇÃO",
+                                        "SEND RECOVERY EMAIL",
                                         style: TextStyle(
                                           fontSize: 15,
                                           fontWeight: FontWeight.bold,
@@ -281,7 +273,6 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                           ),
                         ),
                       ] else ...[
-                        // Estado de sucesso compacto
                         Container(
                           width: 70,
                           height: 70,
@@ -299,7 +290,7 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                         const SizedBox(height: 20),
                         
                         Text(
-                          'Email enviado para:',
+                          'Email sent to:',
                           style: TextStyle(
                             fontSize: 14,
                             color: Colors.grey[600],
@@ -334,7 +325,6 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                         
                         const SizedBox(height: 20),
                         
-                        // Botão para voltar ao login
                         SizedBox(
                           width: double.infinity,
                           height: 50,
@@ -360,7 +350,7 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                                 ),
                                 SizedBox(width: 8),
                                 Text(
-                                  "VOLTAR AO LOGIN",
+                                  "BACK TO LOGIN",
                                   style: TextStyle(
                                     fontSize: 15,
                                     fontWeight: FontWeight.bold,
@@ -374,7 +364,6 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                         
                         const SizedBox(height: 12),
                         
-                        // Botão para reenviar
                         TextButton(
                           onPressed: () {
                             setState(() {
@@ -382,7 +371,7 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                             });
                           },
                           child: const Text(
-                            "Não recebeu? Enviar novamente",
+                            "Didn't receive? Send again",
                             style: TextStyle(
                               color: Color(0xFF6C757D),
                               fontSize: 13,
@@ -395,7 +384,6 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                   ),
                 ),
                 
-                // Rodapé compacto
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -406,7 +394,7 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                     ),
                     const SizedBox(width: 8),
                     Text(
-                      "Segurança em primeiro lugar",
+                      "Secure & Private",
                       style: TextStyle(
                         color: Colors.white.withOpacity(0.8),
                         fontSize: 11,

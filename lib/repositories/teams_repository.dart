@@ -1,7 +1,6 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:socceranalyticsapp/models/player_model.dart';
-import 'package:socceranalyticsapp/models/team_model.dart';
 import 'package:socceranalyticsapp/models/match_model.dart';
 
 import 'package:http/http.dart' as http;

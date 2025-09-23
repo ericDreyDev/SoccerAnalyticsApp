@@ -23,12 +23,12 @@ class FavoritesPage extends StatelessWidget {
                 Icon(Icons.favorite_border, size: 64, color: Colors.grey),
                 SizedBox(height: 16),
                 Text(
-                  'Nenhum time favorito',
+                  'No favorite teams added',
                   style: TextStyle(fontSize: 18, color: Colors.grey),
                 ),
                 SizedBox(height: 8),
                 Text(
-                  'Adicione times aos favoritos na aba Home',
+                  'Add favorite teams from the home page.',
                   style: TextStyle(color: Colors.grey),
                 ),
               ],
@@ -51,7 +51,7 @@ class FavoritesPage extends StatelessWidget {
                     await favoritesProvider.removeFavorite(teamName);
                     ScaffoldMessenger.of(context).showSnackBar(
                       SnackBar(
-                        content: Text('$teamName removido dos favoritos!'),
+                        content: Text('$teamName has been removed from favorites!'),
                         duration: const Duration(milliseconds: 500),
                       ),
                     );

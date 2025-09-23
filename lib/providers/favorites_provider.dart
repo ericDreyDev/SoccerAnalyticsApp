@@ -9,7 +9,6 @@ class FavoritesProvider extends ChangeNotifier {
   Set<String> get favoriteTeams => _favoriteTeams;
   bool get isLoading => _isLoading;
 
-  // Carregar favoritos do storage
   Future<void> loadFavorites() async {
     _isLoading = true;
     notifyListeners();
@@ -17,19 +16,17 @@ class FavoritesProvider extends ChangeNotifier {
     try {
       _favoriteTeams = await _favoritesService.getFavoriteTeams();
     } catch (e) {
-      print('Erro ao carregar favoritos: $e');
+      print('Error loading favorites: $e');
     } finally {
       _isLoading = false;
       notifyListeners();
     }
   }
 
-  // Verificar se time é favorito
   bool isFavorite(String teamName) {
     return _favoriteTeams.contains(teamName);
   }
 
-  // Toggle favorito
   Future<void> toggleFavorite(String teamName) async {
     try {
       final newState = await _favoritesService.toggleFavorite(teamName);
@@ -40,21 +37,19 @@ class FavoritesProvider extends ChangeNotifier {
         _favoriteTeams.remove(teamName);
       }
       
-      // Notificar todos os widgets que estão "ouvindo"
       notifyListeners();
     } catch (e) {
-      print('Erro ao alterar favorito: $e');
+      print('Error toggling favorite: $e');
     }
   }
 
-  // Remover favorito
   Future<void> removeFavorite(String teamName) async {
     try {
       await _favoritesService.removeFromFavorites(teamName);
       _favoriteTeams.remove(teamName);
       notifyListeners();
     } catch (e) {
-      print('Erro ao remover favorito: $e');
+      print('Error removing favorite: $e');
     }
   }
 }

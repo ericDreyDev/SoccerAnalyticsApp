@@ -18,7 +18,7 @@
 
 *No navegador:*
 - Rodar o seguinte comando para que o flutter rode o app desabilitando o CORS do navegador (por algum motivo as imagens n carregam caso contrário)
-    - flutter run -d chrome --web-browser-flag "--disable-web-security
+    - flutter run -d chrome --web-browser-flag "--disable-web-security"
 
 
 # Explicando o funcionamento do projeto:

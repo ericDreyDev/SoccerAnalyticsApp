@@ -43,7 +43,7 @@ class _ChooseLeaguePageState extends State<ChooseLeaguePage> {
       } catch (e) {
         ScaffoldMessenger.of(
           context,
-        ).showSnackBar(SnackBar(content: Text('Erro ao salvar liga: $e')));
+        ).showSnackBar(SnackBar(content: Text('Error saving league: $e')));
       }
     } else {
       ScaffoldMessenger.of(

@@ -24,7 +24,6 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   Future<void> _checkAutoLogin() async {
-    // Simular um pequeno delay para mostrar splash
     await Future.delayed(const Duration(seconds: 2));
 
     final savedRememberMe = await _storage.read(key: 'remember_me');
@@ -32,13 +31,11 @@ class _SplashScreenState extends State<SplashScreen> {
     final savedPassword = await _storage.read(key: 'saved_password');
     final savedLeague = await _storage.read(key: 'selected_league');
 
-    // Verificar se deve fazer auto-login
     if (savedRememberMe == 'true' &&
         savedEmail != null &&
         savedPassword != null &&
         savedEmail.isNotEmpty &&
         savedPassword.isNotEmpty) {
-      // Usuário deve ser logado automaticamente
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(
@@ -50,7 +47,6 @@ class _SplashScreenState extends State<SplashScreen> {
         ),
       );
     } else {
-      // Mostrar tela de login
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(builder: (context) => const LoginPage()),

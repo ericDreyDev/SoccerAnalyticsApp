@@ -23,7 +23,7 @@ class _TeamCardState extends State<TeamCard> {
   final repository = LeaguesRepository();
   final favoritesService = FavoritesService();
 
-  // Map para controlar estado dos favoritos de cada time
+  // map to hold favorite states
   Map<String, bool> favoriteStates = {};
 
   @override
@@ -33,7 +33,6 @@ class _TeamCardState extends State<TeamCard> {
     _loadFavoriteStates();
   }
 
-  // Carregar estados dos favoritos
   Future<void> _loadFavoriteStates() async {
     final teams = await teamsFuture;
     final Map<String, bool> states = {};
@@ -51,7 +50,6 @@ class _TeamCardState extends State<TeamCard> {
     }
   }
 
-  // Toggle favorito com animação
   Future<void> _toggleFavorite(String teamName) async {
     final favoritesProvider = Provider.of<FavoritesProvider>(
       context,
@@ -62,13 +60,12 @@ class _TeamCardState extends State<TeamCard> {
     await favoritesProvider.toggleFavorite(teamName);
 
     if (mounted) {
-      // Feedback visual
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text(
             wasAdded
-                ? '$teamName adicionado aos favoritos!'
-                : '$teamName removido dos favoritos!',
+                ? '$teamName has been added to favorites!'
+                : '$teamName has been removed from favorites!',
           ),
           duration: const Duration(milliseconds: 500),
           backgroundColor: wasAdded ? Colors.red : Colors.grey,
@@ -178,7 +175,6 @@ class _TeamCardState extends State<TeamCard> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  // Team Badge
                   Expanded(
                     flex: 3,
                     child: Container(
@@ -215,7 +211,6 @@ class _TeamCardState extends State<TeamCard> {
 
                   const SizedBox(height: 8),
 
-                  // Team Name
                   Expanded(
                     flex: 2,
                     child: Column(
@@ -250,7 +245,6 @@ class _TeamCardState extends State<TeamCard> {
               ),
             ),
 
-            // SOLUÇÃO: Consumer ISOLADO só para o botão de favorito
             Positioned(
               bottom: 8,
               right: 8,
@@ -263,17 +257,15 @@ class _TeamCardState extends State<TeamCard> {
                     duration: const Duration(milliseconds: 200),
                     child: GestureDetector(
                       onTap: () async {
-                        // Usar HapticFeedback para melhor UX
                         HapticFeedback.lightImpact();
                         await favoritesProvider.toggleFavorite(teamName);
 
-                        // Feedback visual
                         ScaffoldMessenger.of(context).showSnackBar(
                           SnackBar(
                             content: Text(
                               favoritesProvider.isFavorite(teamName)
-                                  ? '$teamName adicionado aos favoritos!'
-                                  : '$teamName removido dos favoritos!',
+                                  ? '$teamName has been added to favorites!'
+                                  : '$teamName has been removed from favorites!',
                             ),
                             duration: const Duration(seconds: 1),
                             backgroundColor:

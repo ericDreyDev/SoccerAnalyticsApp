@@ -19,16 +19,10 @@ class _LoginPageState extends State<LoginPage> {
 
   static const _storage = FlutterSecureStorage();
 
-  // Chaves para armazenamento
+  // keys for storage
   static const String _keyEmail = 'saved_email';
   static const String _keyPassword = 'saved_password';
   static const String _keyRememberMe = 'remember_me';
-
-  @override
-  void initState() {
-    super.initState();
-    _loadSavedCredentials();
-  }
 
   @override
   void dispose() {
@@ -37,47 +31,16 @@ class _LoginPageState extends State<LoginPage> {
     super.dispose();
   }
 
-  // Carregar credenciais salvas
-  Future<void> _loadSavedCredentials() async {
-    final savedRememberMe = await _storage.read(key: _keyRememberMe);
-
-    if (savedRememberMe == 'true') {
-      final savedEmail = await _storage.read(key: _keyEmail);
-      final savedPassword = await _storage.read(key: _keyPassword);
-
-      setState(() {
-        rememberMe = true;
-        _emailController.text = savedEmail ?? '';
-        _passwordController.text = savedPassword ?? '';
-      });
-    }
-  }
-
-  // Salvar credenciais
   Future<void> _saveCredentials() async {
     if (rememberMe) {
       await _storage.write(key: _keyEmail, value: _emailController.text);
       await _storage.write(key: _keyPassword, value: _passwordController.text);
       await _storage.write(key: _keyRememberMe, value: 'true');
     } else {
-      // Limpar dados salvos se desmarcar "Lembrar-me"
       await _storage.delete(key: _keyEmail);
       await _storage.delete(key: _keyPassword);
       await _storage.delete(key: _keyRememberMe);
     }
-  }
-
-  // Verificar se usuário já está "logado" (dados salvos)
-  Future<bool> _checkAutoLogin() async {
-    final savedRememberMe = await _storage.read(key: _keyRememberMe);
-    final savedEmail = await _storage.read(key: _keyEmail);
-    final savedPassword = await _storage.read(key: _keyPassword);
-
-    return savedRememberMe == 'true' &&
-        savedEmail != null &&
-        savedPassword != null &&
-        savedEmail.isNotEmpty &&
-        savedPassword.isNotEmpty;
   }
 
   Future<void> _handleLogin() async {
@@ -88,7 +51,6 @@ class _LoginPageState extends State<LoginPage> {
       return;
     }
 
-    // Salvar credenciais se "Lembrar-me" estiver marcado
     await _saveCredentials();
 
     Navigator.pushReplacement(
@@ -106,8 +68,8 @@ class _LoginPageState extends State<LoginPage> {
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
             colors: [
-              Color(0xFF1E3A8A), // Azul escuro (campo de futebol à noite)
-              Color(0xFF059669), // Verde (grama do campo)
+              Color(0xFF1E3A8A),
+              Color(0xFF059669),
             ],
           ),
         ),
@@ -117,7 +79,6 @@ class _LoginPageState extends State<LoginPage> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                // Logo com animação e sombra
                 Container(
                   width: MediaQuery.of(context).size.width * 0.4,
                   padding: const EdgeInsets.all(15),
@@ -138,11 +99,10 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                 ),
                 
-                // Título e subtítulo compactos
                 Column(
                   children: [
                     const Text(
-                      'Bem-vindo!',
+                      'Welcome!',
                       style: TextStyle(
                         fontSize: 28,
                         fontWeight: FontWeight.bold,
@@ -160,7 +120,7 @@ class _LoginPageState extends State<LoginPage> {
                     const SizedBox(height: 6),
                     
                     const Text(
-                      'Analise o futebol como um profissional',
+                      'Analyze your favorite leagues and teams!',
                       style: TextStyle(
                         fontSize: 14,
                         color: Colors.white70,
@@ -170,7 +130,6 @@ class _LoginPageState extends State<LoginPage> {
                   ],
                 ),
                 
-                // Card do formulário mais compacto
                 Container(
                   padding: const EdgeInsets.all(20),
                   decoration: BoxDecoration(
@@ -186,7 +145,6 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                   child: Column(
                     children: [
-                      // Campo de Email
                       Container(
                         decoration: BoxDecoration(
                           color: const Color(0xFFF8F9FA),
@@ -205,7 +163,7 @@ class _LoginPageState extends State<LoginPage> {
                               Icons.email_outlined,
                               color: Color(0xFF6C757D),
                             ),
-                            hintText: "Digite seu email",
+                            hintText: "Type your email",
                             hintStyle: const TextStyle(
                               color: Color(0xFF6C757D),
                               fontSize: 16,
@@ -222,7 +180,6 @@ class _LoginPageState extends State<LoginPage> {
                       
                       const SizedBox(height: 16),
                       
-                      // Campo de Senha
                       Container(
                         decoration: BoxDecoration(
                           color: const Color(0xFFF8F9FA),
@@ -254,7 +211,7 @@ class _LoginPageState extends State<LoginPage> {
                                 color: const Color(0xFF6C757D),
                               ),
                             ),
-                            hintText: "Digite sua senha",
+                            hintText: "Type your password",
                             hintStyle: const TextStyle(
                               color: Color(0xFF6C757D),
                               fontSize: 16,
@@ -270,7 +227,6 @@ class _LoginPageState extends State<LoginPage> {
                       ),
                       
                       const SizedBox(height: 20),
-                      // Checkbox "Lembrar-me"
                       Row(
                         children: [
                           Checkbox(
@@ -284,7 +240,7 @@ class _LoginPageState extends State<LoginPage> {
                           ),
                           const SizedBox(width: 8),
                           const Text(
-                            "Lembrar-me",
+                            "Remember me",
                             style: TextStyle(
                               color: Color(0xFF6C757D),
                               fontSize: 14,
@@ -294,14 +250,12 @@ class _LoginPageState extends State<LoginPage> {
                         ],
                       ),
                       
-                      // Botão de Login
                       SizedBox(
                         width: double.infinity,
                         height: 50,
                         child: ElevatedButton(
                           onPressed: () {
                             _handleLogin();
-                            // Navegação para home page
                           },
                           style: ElevatedButton.styleFrom(
                             backgroundColor: const Color(0xFF059669),
@@ -321,7 +275,7 @@ class _LoginPageState extends State<LoginPage> {
                               ),
                               SizedBox(width: 8),
                               Text(
-                                "ENTRAR NO CAMPO",
+                                "Join the game!",
                                 style: TextStyle(
                                   fontSize: 15,
                                   fontWeight: FontWeight.bold,
@@ -335,7 +289,6 @@ class _LoginPageState extends State<LoginPage> {
                       
                       const SizedBox(height: 12),
                       
-                      // Link "Esqueci minha senha"
                       TextButton(
                         onPressed: () {
                           Navigator.push(
@@ -346,7 +299,7 @@ class _LoginPageState extends State<LoginPage> {
                           );
                         },
                         child: const Text(
-                          "Esqueci minha senha",
+                          "Forgot my password",
                           style: TextStyle(
                             color: Color(0xFF6C757D),
                             fontSize: 13,
@@ -358,7 +311,6 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                 ),
                 
-                // Rodapé com ícones de futebol
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
